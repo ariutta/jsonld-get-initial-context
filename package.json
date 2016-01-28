@@ -1,0 +1,26 @@
+{
+  "name": "jsonld-get-initial-context",
+  "version": "1.0.0-alpha.0",
+  "description": "Broke out \"_getInitialContext\" function from jsonld.js into its own module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ariutta/jsonld-get-initial-context.git"
+  },
+  "author": "",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/ariutta/jsonld-get-initial-context/issues"
+  },
+  "homepage": "https://github.com/ariutta/jsonld-get-initial-context#readme",
+  "dependencies": {
+    "falafel": "^1.2.0",
+    "jsonld": "^0.4.5",
+    "jsonld-url-parse": "git://github.com/ariutta/jsonld-url-parse.git",
+    "remove-dot-segments": "git://github.com/ariutta/remove-dot-segments.git",
+    "rx-extra": "^1.0.2"
+  }
+}
