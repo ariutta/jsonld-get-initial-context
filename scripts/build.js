@@ -16,8 +16,8 @@ function falafelRx(code, opts) {
 }
 
 var outputChunks = [];
-var stubString = fs.readFileSync(__dirname, '..', 'lib', 'stub.js');
-outputChunks.push();
+var beforeString = fs.readFileSync(path.join(__dirname, '..', 'lib', 'before.js'));
+outputChunks.push(beforeString);
 
 var neededFunctions = [
   '_clone',
@@ -25,8 +25,8 @@ var neededFunctions = [
   '_getInitialContext',
   '_isArray',
 ];
-
-var sourceString = fs.readFileSync(__dirname, '..', 'node_modules', 'jsonld', 'js', 'jsonld.js');
+var sourcePath = path.join(__dirname, '..', 'node_modules', 'jsonld', 'js', 'jsonld.js');
+var sourceString = fs.readFileSync(sourcePath);
 falafelRx(sourceString)
   .filter(function(node) {
     return (node.type === 'FunctionExpression' ||
@@ -43,11 +43,16 @@ falafelRx(sourceString)
   }, function(err) {
     throw err;
   }, function() {
-    var outputString = outputChunks.join('\n\n');
+    var afterString = fs.readFileSync(path.join(__dirname, '..', 'lib', 'after.js'));
+    outputChunks.push(afterString);
+
+    var outputString = outputChunks.join('\n\n')
+      .replace('jsonld.url.parse', 'jsonldURLParse');
+    
     console.log('outputString');
     console.log(outputString);
 
-    var destPath = path.join(__dirname, '..', 'lib', '_getInitialContext.js');
+    var destPath = path.join(__dirname, '..', 'index.js');
     fs.writeFileSync(destPath, outputString, {encoding: 'utf8'});
     console.log('completed');
   });
